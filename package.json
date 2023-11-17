@@ -32,7 +32,8 @@
     "prettier2": "prettier",
     "lint": "yarn run eslint && yarn run prettier ./src",
     "lint-s": "lint-staged",
-    "docs": "docsify serve docs"
+    "docs": "docsify serve docs",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
@@ -75,7 +76,7 @@
     "eslint-plugin-standard": "5.0.0",
     "extend-shallow": "3.0.2",
     "generate-random-data": "0.0.3",
-    "husky": "7.0.1",
+    "husky": "^8.0.3",
     "jest": "^29.6.1",
     "jest-environment-jsdom": "^29.6.1",
     "lint-staged": "11.0.0",
@@ -106,7 +107,6 @@
   "files": [
     "dist"
   ],
-  "peerDependencies": {},
   "dependencies": {
     "lodash.debounce": "^4.0.8"
   },
