@@ -106,8 +106,7 @@
   "files": [
     "dist"
   ],
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "dependencies": {
     "lodash.debounce": "^4.0.8"
   },
