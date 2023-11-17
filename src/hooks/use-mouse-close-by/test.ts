@@ -5,6 +5,10 @@ describe('useMouseCloseBy', () => {
   test('export what is expected', () => {
     expect(useMouseCloseBy).toBeDefined();
   });
+
+  test('export what is expected', () => {
+    expect(useMouseCloseBy).toBeDefined();
+  });
 });
 
 describe('getNewDefinedArea', () => {

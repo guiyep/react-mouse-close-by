@@ -9,7 +9,6 @@ import json from 'rollup-plugin-json';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import { dts } from 'rollup-plugin-dts';
-
 import pkg from './package.json';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -28,14 +27,14 @@ const configLibrary = {
   plugins: [
     typescript(),
     external(),
-    babel({
-      exclude: 'node_modules/**',
-      runtimeHelpers: true,
-    }),
     resolve({
       extensions: ['.mjs', '.js', '.jsx', '.json', '.ts', '.tsx'],
     }),
     commonjs(),
+    babel({
+      exclude: 'node_modules/**',
+      runtimeHelpers: true,
+    }),
     replace({
       ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
