@@ -4,7 +4,7 @@ export type BoundaryArea = {
 };
 
 export type UseMouseCloseByProps = {
-  ref: React.RefObject<HTMLElement>;
+  handler: () => void;
   boundaryArea: BoundaryArea;
   fireOnlyOnce?: boolean;
 };

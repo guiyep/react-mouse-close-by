@@ -12,10 +12,13 @@ export const UseMouseCloseByTest = () => {
   const ref = useRef<HTMLDivElement>(null);
 
   useMouseCloseBy(
-    () => {
-      console.log('we entered');
+    {
+      handler: () => {
+        console.log('we entered');
+      },
+      boundaryArea,
     },
-    { ref, boundaryArea },
+    ref,
   );
 
   return (

@@ -3,14 +3,14 @@ import type { DefinedArea, UseMouseCloseByProps } from './types';
 import { getNewDefinedArea } from './lib';
 
 export const useMouseCloseBy = (
-  mouseCallbackHandler: () => void,
-  { ref, boundaryArea, fireOnlyOnce = false }: UseMouseCloseByProps,
+  { handler, boundaryArea, fireOnlyOnce = false }: UseMouseCloseByProps,
+  ref: React.RefObject<HTMLElement>,
 ) => {
   const [definedArea, setDefinedArea] = useState<DefinedArea>(null);
   const [isHandlerExecuted, setIsHandlerExecuted] = useState<boolean>(false);
 
   useLayoutEffect(() => {
-    const rect = ref.current.getBoundingClientRect();
+    const rect = ref.current?.getBoundingClientRect();
     setDefinedArea(getNewDefinedArea(rect, boundaryArea));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref]);
@@ -23,7 +23,7 @@ export const useMouseCloseBy = (
 
         if (x >= definedArea.startX && x <= definedArea.endX && y >= definedArea.startY && y <= definedArea.endY) {
           if (!isHandlerExecuted) {
-            mouseCallbackHandler();
+            handler();
             setIsHandlerExecuted(true);
           }
         } else if (isHandlerExecuted) {
@@ -40,5 +40,5 @@ export const useMouseCloseBy = (
       };
     }
     return () => {};
-  }, [definedArea, mouseCallbackHandler, isHandlerExecuted, setIsHandlerExecuted, fireOnlyOnce]);
+  }, [definedArea, handler, isHandlerExecuted, setIsHandlerExecuted, fireOnlyOnce]);
 };

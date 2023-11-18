@@ -1,13 +1,48 @@
 import { useMouseCloseBy } from './index';
 import { getNewDefinedArea } from './lib';
+import React, { useRef, useLayoutEffect } from 'react';
+import { render } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 
 describe('useMouseCloseBy', () => {
   test('export what is expected', () => {
     expect(useMouseCloseBy).toBeDefined();
   });
 
-  test('export what is expected', () => {
-    expect(useMouseCloseBy).toBeDefined();
+  test('to fire when mouse getting close', async () => {
+    const handler = jest.fn();
+
+    const TestHookWithButtonArea = () => {
+      const buttonRef = useRef<HTMLButtonElement>(null);
+
+      useLayoutEffect(() => {
+        jest.spyOn(buttonRef.current, 'getBoundingClientRect').mockImplementation(() => {
+          return { x: 70, y: 70, bottom: 70, right: 70 } as DOMRect;
+        });
+      }, []);
+
+      useMouseCloseBy(
+        {
+          handler,
+          boundaryArea: { x: 10, y: 10 },
+        },
+        buttonRef,
+      );
+
+      return (
+        <div>
+          <button ref={buttonRef}>Test</button>
+        </div>
+      );
+    };
+
+    const user = userEvent.setup();
+
+    render(<TestHookWithButtonArea />);
+    await user.pointer({ coords: { clientX: 60, clientY: 60 } });
+
+    expect(handler).toHaveBeenCalledTimes(1);
   });
 });
 
